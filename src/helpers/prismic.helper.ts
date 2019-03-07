@@ -1,7 +1,7 @@
 import { RichText } from 'prismic-dom'
 import { getApi, Predicates } from 'prismic-javascript'
 import { QueryOptions } from 'prismic-javascript/d.ts/ResolvedApi'
-import { API_ENDPOINT, API_TOKEN } from '../config/prismic'
+import { API_ENDPOINT, API_TOKEN } from '../config/prismic.config'
 
 const VALID_LANGUAGES = ['en-us', 'zh-cn']
 

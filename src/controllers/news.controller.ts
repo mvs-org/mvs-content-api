@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { Logger } from '../libraries/log'
-import { Prismic } from '../libraries/prismic'
+import { Logger } from '../helpers/log.helper'
+import { Prismic } from '../helpers/prismic.helper'
 
 export class NewsController {
 
