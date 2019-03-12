@@ -49,7 +49,7 @@ export class NewsController {
     const pageSize = req.query.limit ? parseInt(req.query.limit, 10) : undefined
     const lang = req.query.lang
     try {
-      const documents = await Prismic.documents({
+      const result = await Prismic.search({
         conditions: [
           ['document.type', 'news'],
         ],
@@ -61,16 +61,20 @@ export class NewsController {
           pageSize,
         },
       })
-      const news = documents.map((doc) => {
-        return {
-          content: Prismic.richToHtml(doc.data.content),
-          date: doc.data.date,
-          link: doc.data.link,
-          slug: doc.uid,
-          thumbnnail: doc.data.thumbnnail,
-          title: doc.data.title[0].text,
-        }
-      })
+      const news = {
+        page: result.page,
+        total_pages: result.total_pages,
+        results: result.results.map((doc) => {
+          return {
+            content: Prismic.richToHtml(doc.data.content),
+            date: doc.data.date,
+            link: doc.data.link,
+            slug: doc.uid,
+            thumbnnail: doc.data.thumbnnail,
+            title: doc.data.title[0].text,
+          }
+        })
+      }
       res.setHeader('Cache-Control', 'public, max-age=600, s-maxage=600')
       res.json(news)
     } catch (error) {
