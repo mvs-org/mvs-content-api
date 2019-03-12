@@ -1,15 +1,18 @@
 import * as express from 'express'
+import { AnnouncementRoutes } from "./routes/AnnouncementRoutes";
 import { NewsRoutes } from './routes/news.routes'
 
 class App {
 
   public app: express.Application
   public newsRoutes: NewsRoutes = new NewsRoutes()
+  public announcementRoutes: AnnouncementRoutes = new AnnouncementRoutes()
 
   constructor() {
     this.app = express()
     this.config()
     this.newsRoutes.routes(this.app)
+    this.announcementRoutes.routes(this.app)
   }
 
   private config(): void {
