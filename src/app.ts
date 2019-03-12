@@ -1,5 +1,5 @@
 import * as express from 'express'
-import { AnnouncementRoutes } from "./routes/AnnouncementRoutes";
+import { AnnouncementRoutes } from './routes/announcement.routes'
 import { NewsRoutes } from './routes/news.routes'
 
 class App {
