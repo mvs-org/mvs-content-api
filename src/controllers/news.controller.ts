@@ -45,6 +45,8 @@ export class NewsController {
   }
 
   public async list(req: Request, res: Response) {
+    const page = req.query.page ? parseInt(req.query.page, 10) : undefined
+    const pageSize = req.query.limit ? parseInt(req.query.limit, 10) : undefined
     const lang = req.query.lang
     try {
       const documents = await Prismic.documents({
@@ -54,15 +56,18 @@ export class NewsController {
         options:
         {
           lang,
-          orderings: '[my.news.date]',
+          orderings: '[my.news.date desc]',
+          page,
+          pageSize,
         },
       })
       const news = documents.map((doc) => {
         return {
-          alternate_languages: doc.alternate_languages,
           content: Prismic.richToHtml(doc.data.content),
-          lang: doc.lang,
+          date: doc.data.date,
+          link: doc.data.link,
           slug: doc.uid,
+          thumbnnail: doc.data.thumbnnail,
           title: doc.data.title[0].text,
         }
       })
