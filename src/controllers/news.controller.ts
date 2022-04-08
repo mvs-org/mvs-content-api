@@ -5,7 +5,7 @@ import { Prismic } from '../helpers/prismic.helper'
 export class NewsController {
 
   public async get(req: Request, res: Response) {
-    const lang: string = req.query.lang
+    const lang = req.query.lang ? req.query.lang.toString() : undefined
     const slug = req.params.slug
     try {
       const documents = await Prismic.documents({
@@ -45,9 +45,9 @@ export class NewsController {
   }
 
   public async list(req: Request, res: Response) {
-    const page = req.query.page ? parseInt(req.query.page, 10) : undefined
-    const pageSize = req.query.limit ? parseInt(req.query.limit, 10) : undefined
-    const lang = req.query.lang
+    const page = req.query.page ? parseInt(req.query.page.toString(), 10) : undefined
+    const pageSize = req.query.limit ? parseInt(req.query.limit.toString(), 10) : undefined
+    const lang = req.query.lang ? req.query.lang.toString() : undefined
     try {
       const result = await Prismic.search({
         conditions: [
